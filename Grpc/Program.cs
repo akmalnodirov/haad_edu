@@ -3,11 +3,8 @@ using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-//2
 builder.Services.AddGrpc();
 
-//1
 builder.Services.AddGrpcReflection();
 
 var app = builder.Build();

@@ -1,4 +1,4 @@
-namespace WebAPI
+namespace HaadEdu.Api
 {
     public class WeatherForecast
     {
