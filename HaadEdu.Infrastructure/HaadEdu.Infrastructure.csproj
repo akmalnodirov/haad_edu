@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HaadEdu.Domain\HaadEdu.Domain.csproj" />
+    <ProjectReference Include="..\HaadEdu.Shared\HaadEdu.Shared.csproj" />
   </ItemGroup>
 
 </Project>

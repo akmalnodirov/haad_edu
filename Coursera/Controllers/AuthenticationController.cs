@@ -101,7 +101,8 @@ public class AuthenticationController : ControllerBase
 
 
     [HttpPost("claims")]
-    [Authorize(Policy = "OnlyForHaad")]
+    //[Authorize(Policy = "OnlyForHaad")]
+    [Authorize(Roles = "OnlyForHaad")]
     public async Task<IActionResult> Claims()
     {
         var s = User;
