@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HaadEdu.Domain\HaadEdu.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -4,9 +4,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace HaadEdu.Api
 {
-    public static class JWTtoken
+    public static class JWTConfiguration
     {
-        public static void JWTConfugre(this IServiceCollection services)
+        public static void ConfigureJWTService(this IServiceCollection services)
         {
             services.AddAuthentication(options =>
             {
