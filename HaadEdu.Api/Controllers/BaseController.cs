@@ -6,8 +6,7 @@ namespace HaadEdu.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class BaseController(IUnitOfWork unitOfWork, IMapper mapper) : Controller
+public class BaseController() : Controller
 {
-    protected readonly IUnitOfWork _unitOfWork = unitOfWork;
-    protected readonly IMapper _mapper = mapper;
+
 }

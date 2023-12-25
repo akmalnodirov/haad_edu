@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HaadEdu.Domain\HaadEdu.Domain.csproj" />
+    <ProjectReference Include="..\HaadEdu.Infrastructure\HaadEdu.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

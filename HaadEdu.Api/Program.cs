@@ -1,13 +1,15 @@
 using HaadEdu.Api;
 using HaadEdu.Api.Configurations;
 using HaadEdu.Application.Repositories;
+using HaadEdu.Application.Services;
+using HaadEdu.Application.Services.Interfaces;
 using HaadEdu.Domain.Repositories;
 using HaadEdu.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAuthorization();
 builder.Services.ConfigureJWTService();
@@ -21,8 +23,8 @@ builder.Services.ConfigureSwagger();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IRoleService, RoleService>();
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
