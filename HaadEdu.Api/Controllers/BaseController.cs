@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
-using HaadEdu.Domain.Repositories;
 
 namespace HaadEdu.Api.Controllers;
 

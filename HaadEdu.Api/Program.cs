@@ -2,6 +2,7 @@ using HaadEdu.Api;
 using HaadEdu.Api.Configurations;
 using HaadEdu.Api.Infrastructure;
 using HaadEdu.Application.Repositories;
+using HaadEdu.Application.Result;
 using HaadEdu.Application.Services;
 using HaadEdu.Application.Services.Interfaces;
 using HaadEdu.Domain.Repositories;
@@ -15,22 +16,32 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder
 builder.Services.AddAuthorization();
 builder.Services.ConfigureJWTService();
 
-// Add services to the container.
+builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var response = new Result<object>(ErrorMessages.BadRequest);
+        return new ModelValidationError(response);
+    };
+});
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.ConfigureLanguage();
 builder.Services.ConfigureSwagger();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseLanguageConfiguration();
 
 app.UseSwaggerConfiguration();
 

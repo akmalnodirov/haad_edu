@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using HaadEdu.Application;
+using HaadEdu.Application.Result;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Extensions.Localization;
 
 namespace HaadEdu.Api.Infrastructure;
 
-public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
+public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger, IStringLocalizer<AppLanguage> localizer) : IExceptionHandler
 {
     private readonly ILogger<GlobalExceptionHandler> _logger = logger;
+    private IStringLocalizer<AppLanguage> _localizer = localizer;
 
     public async ValueTask<bool> TryHandleAsync(
     HttpContext httpContext,
@@ -15,16 +18,14 @@ public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IE
         _logger.LogError(
             exception, "Exception occurred: {Message}", exception.Message);
 
-        var problemDetails = new ProblemDetails
-        {
-            Status = StatusCodes.Status500InternalServerError,
-            Title = "Server error"
-        };
+        var response = new Result<object>(new KeyValuePair<int, string>(
+              ErrorMessages.Internal.Key, ErrorMessages.Internal.Value),
+              _localizer);
 
-        httpContext.Response.StatusCode = problemDetails.Status.Value;
+        httpContext.Response.StatusCode = response.Error.Code;
 
         await httpContext.Response
-            .WriteAsJsonAsync(problemDetails, cancellationToken);
+            .WriteAsJsonAsync(response, cancellationToken);
 
         return true;
     }
