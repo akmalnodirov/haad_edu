@@ -21,7 +21,7 @@ public class RoleService(IUnitOfWork unitOfWork, IMapper mapper, IStringLocalize
             var validPermissions = Enum.GetValues(typeof(Permissions)).Cast<Permissions>();
             if (addRoleRequest.RolePermissions.Except(validPermissions).Any())
             {
-                return new Result<AddRoleResponse>(ErrorMessages.InvalidPermission);
+                return new Result<AddRoleResponse>(ErrorMessages.InvalidPermission, localizer);
             }
 
             var role = new Role { Name = addRoleRequest.Name };

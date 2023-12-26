@@ -12,7 +12,7 @@ public static class LanguageConfiguration
     /// <param name="configuration">The configuration.</param>
     public static void ConfigureLanguage(this IServiceCollection services)
     {
-        services.AddLocalization(options => options.ResourcesPath = "Resources");
+        services.AddLocalization(options => options.ResourcesPath = "AppLanguage");
     }
 
     /// <summary>
