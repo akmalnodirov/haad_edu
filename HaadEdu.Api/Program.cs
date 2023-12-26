@@ -1,5 +1,6 @@
 using HaadEdu.Api;
 using HaadEdu.Api.Configurations;
+using HaadEdu.Api.Infrastructure;
 using HaadEdu.Application.Repositories;
 using HaadEdu.Application.Services;
 using HaadEdu.Application.Services.Interfaces;
@@ -24,6 +25,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 
 var app = builder.Build();
@@ -35,6 +37,8 @@ app.UseSwaggerConfiguration();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseExceptionHandler();
 
 app.MapControllers();
 

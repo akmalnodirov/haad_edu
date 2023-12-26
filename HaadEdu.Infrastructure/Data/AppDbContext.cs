@@ -8,7 +8,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<Role> Roles { get; set; }
-    public virtual DbSet<RolePermission> Permissions { get; set; }
+    public virtual DbSet<RolePermission> RolePermissions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,8 +23,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         }
 
         modelBuilder.Entity<User>().ToTable("users");
-        modelBuilder.Entity<Role>().ToTable("roles");
-        modelBuilder.Entity < RolePermission>().ToTable("permissions");
+        modelBuilder.Entity<Role>().ToTable("roles")
+            .HasIndex(r => r.Name)
+            .IsUnique();
+        modelBuilder.Entity<RolePermission>().ToTable("role_permissions");
 
         modelBuilder.Entity<User>()
            .HasOne(u => u.Role)
@@ -35,6 +37,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
            .HasOne(u => u.Role)
            .WithOne()
            .HasForeignKey<RolePermission>(u => u.RoleId);
+
+        modelBuilder.Entity<Role>()
+            .HasMany(r => r.RolePermissions)
+            .WithOne(rp => rp.Role)
+            .HasForeignKey(rp => rp.RoleId);
 
         base.OnModelCreating(modelBuilder);
     }

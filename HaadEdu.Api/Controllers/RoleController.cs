@@ -1,4 +1,5 @@
-﻿using HaadEdu.Application.Services.Interfaces;
+﻿using HaadEdu.Application.Dtos.Role;
+using HaadEdu.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HaadEdu.Api.Controllers;
@@ -19,5 +20,21 @@ public class RoleController(IRoleService roleService) : BaseController
         }
 
         return Ok();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddRoleAsync(AddRoleRequest addRoleRequest)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest();
+
+        var role = await _roleService.CreateRoleAsync(addRoleRequest);
+
+        if (role == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(role);
     }
 }

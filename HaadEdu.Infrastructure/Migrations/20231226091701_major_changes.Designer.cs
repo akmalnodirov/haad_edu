@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HaadEdu.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231220165837_table_name_changed")]
-    partial class table_name_changed
+    [Migration("20231226091701_major_changes")]
+    partial class major_changes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,10 +43,6 @@ namespace HaadEdu.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
-                    b.Property<int[]>("Permissions")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("permissions");
-
                     b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_time");
@@ -69,9 +65,9 @@ namespace HaadEdu.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_date");
 
-                    b.Property<int>("PermissionsCode")
+                    b.Property<int>("Permissions")
                         .HasColumnType("integer")
-                        .HasColumnName("permissions_code");
+                        .HasColumnName("permissions");
 
                     b.Property<long>("RoleId")
                         .HasColumnType("bigint")
@@ -83,10 +79,9 @@ namespace HaadEdu.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId")
-                        .IsUnique();
+                    b.HasIndex("RoleId");
 
-                    b.ToTable("permissions", (string)null);
+                    b.ToTable("role_permissions", (string)null);
                 });
 
             modelBuilder.Entity("HaadEdu.Domain.Entities.User", b =>
@@ -136,8 +131,8 @@ namespace HaadEdu.Infrastructure.Migrations
             modelBuilder.Entity("HaadEdu.Domain.Entities.RolePermission", b =>
                 {
                     b.HasOne("HaadEdu.Domain.Entities.Role", "Role")
-                        .WithOne()
-                        .HasForeignKey("HaadEdu.Domain.Entities.RolePermission", "RoleId")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -151,6 +146,11 @@ namespace HaadEdu.Infrastructure.Migrations
                         .HasForeignKey("HaadEdu.Domain.Entities.User", "RoleId");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("HaadEdu.Domain.Entities.Role", b =>
+                {
+                    b.Navigation("RolePermissions");
                 });
 #pragma warning restore 612, 618
         }

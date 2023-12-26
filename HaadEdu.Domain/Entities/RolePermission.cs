@@ -4,5 +4,5 @@ public class RolePermission : BaseEntity
 {
     public long RoleId { get; set; }
     public Role? Role { get; set; }
-    public Permissions PermissionsCode { get; set; }
+    public Permissions Permission { get; set; }
 }

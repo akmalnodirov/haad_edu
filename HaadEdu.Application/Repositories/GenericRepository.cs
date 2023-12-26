@@ -13,15 +13,19 @@ public class GenericRepository<T>(AppDbContext context, ILogger logger) : IGener
     protected AppDbContext _context = context;
     internal DbSet<T> _dbSet = context.Set<T>();
 
-    /// <summary>
-    /// Creates the asynchronous.
-    /// </summary>
-    /// <param name="entity">The entity.</param>
-    /// <returns></returns>
-    public virtual async Task<T> CreateAsync(T entity)
+    public virtual async Task<T> AddAsync(T entity)
     {
         await _dbSet.AddAsync(entity);
         return entity;
+    }
+
+    /// <summary>
+    /// Adds the range asynchronous.
+    /// </summary>
+    /// <param name="entities">The entities.</param>
+    public virtual async Task AddRangeAsync(IEnumerable<T> entities)
+    {
+        await _dbSet.AddRangeAsync(entities);
     }
 
     /// <summary>
