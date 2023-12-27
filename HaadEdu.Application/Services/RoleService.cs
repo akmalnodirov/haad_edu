@@ -29,7 +29,7 @@ public class RoleService(IUnitOfWork unitOfWork, IMapper mapper, IStringLocalize
             await _unitOfWork.CompleteAsync();
 
             var rolePermissionsToAdd = addRoleRequest.RolePermissions
-                .Select(item => new RolePermission { RoleId = role.Id, Permission = item })
+                .Select(item => new RolePermission { RoleId = role.Id, Permission = item, Id = 1 })
                 .ToList();
             await _unitOfWork.RolePermissionRepository.AddRangeAsync(rolePermissionsToAdd);
             await _unitOfWork.CompleteAsync();

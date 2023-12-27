@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security;
 using System.Security.Claims;
 
 namespace Coursera.Controllers;
@@ -59,7 +60,8 @@ public class AuthenticationController : ControllerBase
             new(ClaimTypes.Name, user.Name),
             new("userPassword", user.Email),
             new("userId", user.Id.ToString()),
-            new("company", "LearningCenter")
+            new("company", "LearningCenter"),
+            new("roleId", user.roleId)
     };
 
         foreach (var item in userRoles)

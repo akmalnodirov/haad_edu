@@ -15,6 +15,7 @@ public class Result<T> where T : class
 
     public Result(KeyValuePair<int, string> response, IStringLocalizer<AppLanguage>? localizer = null)
     {
+        var s = localizer[response.Value];
         Error = new Error
         {
             Message = localizer != null ? localizer[response.Value] : response.Value,
