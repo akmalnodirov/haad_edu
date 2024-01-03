@@ -2,6 +2,7 @@
 using HaadEdu.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace HaadEdu.Infrastructure.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
