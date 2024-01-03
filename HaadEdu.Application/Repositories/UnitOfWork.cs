@@ -2,7 +2,6 @@
 using HaadEdu.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
-using System.Transactions;
 
 namespace HaadEdu.Application.Repositories;
 
