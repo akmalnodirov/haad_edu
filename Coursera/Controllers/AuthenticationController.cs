@@ -61,7 +61,7 @@ public class AuthenticationController : ControllerBase
             new("userPassword", user.Email),
             new("userId", user.Id.ToString()),
             new("company", "LearningCenter"),
-            new("roleId", user.roleId)
+           // new("roleId", user.RoleId)
     };
 
         foreach (var item in userRoles)
