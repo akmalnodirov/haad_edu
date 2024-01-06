@@ -1,6 +1,6 @@
 ﻿namespace HaadEdu.Domain.Entities;
 
-public class RolePermission : BaseEntity
+public class RolePermission : Audituble
 {
     public long RoleId { get; set; }
     public Role? Role { get; set; }
