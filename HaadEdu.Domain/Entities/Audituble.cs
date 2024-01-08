@@ -6,4 +6,4 @@
         public DateTime? UpdatedTime { get; set; } = DateTime.UtcNow;
     }
 }
-}
+
