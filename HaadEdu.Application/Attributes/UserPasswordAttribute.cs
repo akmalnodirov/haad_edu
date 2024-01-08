@@ -13,7 +13,7 @@ public class UserPasswordAttribute : ValidationAttribute
             return ValidationResult.Success;
         }
 
-        return new ValidationResult("Sizning parolingiz yaroqli emas");
+        return new ValidationResult("Passwor is not strong!");
     }
 
 }
