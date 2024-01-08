@@ -1,6 +1,6 @@
 ﻿namespace HaadEdu.Domain.Entities;
 
-public class Course : Audituble
+public class Course : Auditable
 {
     public string Name { get; set; }
     public string Description { get; set; }
