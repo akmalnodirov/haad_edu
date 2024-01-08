@@ -1,0 +1,30 @@
+name: Continuous Integration and Deployment #name of our cd cd
+
+on: #on means, when it works, in our case it work on push, so when we push to master branch it works
+    push:
+        branches:
+            - master
+
+jobs: #so it asks what should happen when we push and it is called jobs
+    build: # job is build
+        runs-on: ubuntu-latest #where to run - in our case it is ubuntu server
+        steps: #after that we specify steps, what steps should happen, we can see steps in here: https://github.com/marketplace?type=actions
+            - name: Check out code
+              uses: actions/checkout@v4
+            
+            - name: setup dotnet
+              uses: actions/setup-dotnet@v3
+              with:
+                dotnet-version: '8.0'
+            
+            - name: Restore dependencies
+              run: dotnet restore
+
+            - name: Build app
+              run: dotnet build -c Release --no-restore
+
+            - name: Run tests
+              run: dotnet test -c Release --no-build
+
+
+            
