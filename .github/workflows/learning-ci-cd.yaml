@@ -5,6 +5,11 @@ on: #on means, when it works, in our case it work on push, so when we push to ma
         branches:
             - master
 
+# We can declare a variables just for readability purposes and clean configuration
+env:
+    DOTNET_VERSION: '8.0'
+    AZURE_WEBAPP_NAME: 'umrah-tour-webapp'
+
 jobs: #so it asks what should happen when we push and it is called jobs
     build: # job is build
         runs-on: ubuntu-latest #where to run - in our case it is ubuntu server
@@ -15,16 +20,27 @@ jobs: #so it asks what should happen when we push and it is called jobs
             - name: setup dotnet
               uses: actions/setup-dotnet@v3
               with:
-                dotnet-version: '8.0'
+                dotnet-version: '8.0' # we can use env variables instead of direct values: ${env.DOTNET_VERSION}}
             
             - name: Restore dependencies
               run: dotnet restore
-
+ 
             - name: Build app
               run: dotnet build -c Release --no-restore
 
             - name: Run tests
               run: dotnet test -c Release --no-build
+
+            - name: Publish app
+              run: dotnet publish -c Release -o ./out
+
+            - name: Deploy to Azure web apps
+              uses: azure/webapps-deploy@v2
+              with:
+                app-name: umrah-tour-webapp
+                publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_SECRET }}
+                package: ./out
+
 
 
             
