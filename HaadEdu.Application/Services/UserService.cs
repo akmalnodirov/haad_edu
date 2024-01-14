@@ -28,7 +28,7 @@ public class UserService : IUserServace
         throw new NotImplementedException();
     }
 
-    public Task<UserForView> GetAsync(Expression<Func<User, bool>> expression)
+    public Task<User> GetAsync(Expression<Func<User, bool>> expression)
     {
         throw new NotImplementedException();
     }
