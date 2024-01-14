@@ -1,5 +1,6 @@
 using HaadEdu.Api;
 using HaadEdu.Api.Configurations;
+using HaadEdu.Api.Extensions;
 using HaadEdu.Api.Infrastructure;
 using HaadEdu.Application.Repositories;
 using HaadEdu.Application.Result;
@@ -14,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAuthorization();
-builder.Services.ConfigureJWTService();
+builder.Services.AddCustomServices();
 
 builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
 {

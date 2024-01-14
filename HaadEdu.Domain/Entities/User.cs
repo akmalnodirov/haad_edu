@@ -1,6 +1,6 @@
 ﻿namespace HaadEdu.Domain.Entities;
 
-public class User : Audituble
+public class User : Auditable
 {
     public string Firstname { get; set; } = null!;
     public string Lastname { get; set; } = null;

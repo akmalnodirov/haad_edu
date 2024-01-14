@@ -18,3 +18,4 @@ namespace HaadEdu.Application.Extension
         }
     }
 }
+

@@ -18,7 +18,7 @@ public interface IUserServace
 
     Task<IEnumerable<UserForView>> GetAllByCourse(PaginationParams paginationParams, string CourceName );
 
-    Task<UserForView> GetAsync(Expression<Func<User, bool>> expression);
+    Task<User> GetAsync(Expression<Func<User, bool>> expression);
 
     Task<bool> ChangeRoleAsync(int id, Role userRole);
 
