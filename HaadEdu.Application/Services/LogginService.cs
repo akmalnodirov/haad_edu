@@ -20,12 +20,12 @@ public class LogginService(IUserServace userServace, IConfiguration configuratio
 
     public async Task<LoginForView> LoginAsync(LoginForCreation loginForCreation)
     {
-        var user = await userServace.GetAsync(u => u.Email == loginForCreation.Email);
-        var UserPassword = PasswordHashing.Encrypt(loginForCreation.Password);
-        if (UserPassword is null)
+        var userPassword = PasswordHashing.Encrypt(loginForCreation.Password);
+        
+        var user = await userServace.GetAsync(u => u.Email == loginForCreation.Email && u.Password == userPassword);
+        
+        if(user == null)
             throw new CustomException(400, "Email or password is incorrect");
-
-        role = (IRoleService)await roleService.GetRoleAsync(r => r.Id == user.RoleId);
 
         return new LoginForView
         {
